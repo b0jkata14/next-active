@@ -10,12 +10,12 @@ NextActive is a platform that connects users with certified personal trainers. W
   git clone https://github.com/b0jkata14/next-active.git
 ```
    
-### 3. Install dependencies
+### 2. Install dependencies
 ```bash
   pip install -r requirements.txt
 ```
 
-### 4. Create the `.env` file in the root of your project.
+### 3. Create the `.env` file in the root of your project.
 
 #### Example `.env`
 
@@ -25,13 +25,13 @@ SECRET_KEY=your_secret_key_here
 DEBUG=True
 ```
 
-### 5. Run the migrations
+### 4. Run the migrations
 
 ```bash
   python manage.py migrate
 ```
 
-### 6. Run the project
+### 5. Run the project
 
 ```bash
   python manage.py runserver
