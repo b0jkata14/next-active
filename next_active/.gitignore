@@ -1,0 +1,9 @@
+# Ignore the .env file containing sensitive data
+.env
+
+# Ignore SQLite database file (if used)
+db.sqlite3
+
+# Ignore Python bytecode files
+*.pyc
+__pycache__/
