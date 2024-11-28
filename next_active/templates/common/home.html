@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="{% url 'register' %}">REgister</a>
+<a href="{% url 'login' %}">Login</a>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Изход</button>
+</form>
+
+{% if request.user.is_authenticated %}
+<a href="{% url 'profile-detail' request.user.id %}">profile details</a>
+{% endif %}
+<a href="{% url 'trainer-application-register' %}">Trainer application</a>
+
+    <h1>HOME PAGE</h1>
+ <h2>Hello, {{ request.user }}</h2>
+</body>
+</html>
