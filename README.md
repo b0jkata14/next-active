@@ -23,6 +23,10 @@ NextActive is a platform that connects users with certified personal trainers. W
 # Development settings
 SECRET_KEY=your_secret_key_here
 DEBUG=True
+# Cloudinary setup
+CLOUDINARY_CLOUD_NAME=""
+CLOUDINARY_API_KEY=""
+CLOUDINARY_API_SECRET=""
 ```
 
 ### 4. Run the migrations
