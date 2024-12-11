@@ -27,15 +27,16 @@ class TrainerApplicationRegisterView(LoginRequiredMixin, CreateView):
     template_name = 'applications/trainer-application-register.html'
 
     def dispatch(self, request, *args, **kwargs):
-        pending_application = TrainerApplication.objects.filter(user=request.user, is_pending=True).first()
+        if self.request.user.is_authenticated:
+            pending_application = TrainerApplication.objects.filter(user=request.user).last()
 
-        if pending_application:
-            return HttpResponseRedirect(
-                reverse(
-                    'trainer-application-detail',
-                    kwargs={'pk': pending_application.pk},
+            if pending_application:
+                return HttpResponseRedirect(
+                    reverse(
+                        'trainer-application-detail',
+                        kwargs={'pk': pending_application.pk},
+                    )
                 )
-            )
 
         return super().dispatch(request, *args, **kwargs)
 

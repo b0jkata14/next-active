@@ -1,0 +1,42 @@
+.background-image {
+    background-image: url('/static/images/index/swimmer.jpg');
+    background-size: cover;
+    background-position: center; /* Запълване на целия екран */
+    padding-top: 200px;
+    padding-bottom: 200px;
+}
+
+.search-box {
+    background: rgba(255, 255, 255, 0.3); /* Полупрозрачен фон */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.search-box input,
+.search-box button {
+    border-radius: 5px;
+}
+
+.search-box input::placeholder {
+    color: #6c757d;
+}
+
+.search-box button {
+    background-color: #9cff00; /* Ярък зелен цвят */
+    border-color: gray;
+    color: #010b12; /* Черен текст */
+    transition: all 0.3s ease;
+}
+
+.search-box button:hover {
+    background-color: #9cff00; /* По-тъмен зелен цвят */
+    border-color: #6c757d;
+    transform: scale(1.01);
+}
+
+.search-box button:focus {
+    background-color: #9cff00; /* По-тъмен зелен цвят */
+    border-color: #6c757d;
+    transform: scale(1.01);
+}

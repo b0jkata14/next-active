@@ -9,11 +9,16 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+import os
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+from django.urls import reverse_lazy
+from decouple import config
 from pathlib import Path
 
-from decouple import config
-from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,8 +35,18 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
+cloudinary.config(
+    cloud_name=config('CLOUDINARY_CLOUD_NAME'),
+    api_key=config('CLOUDINARY_API_KEY'),
+    api_secret=config('CLOUDINARY_API_SECRET')
+)
 
-# Application definition
+MY_APPS = [
+    'next_active.accounts.apps.AccountsConfig',
+    'next_active.common.apps.CommonConfig',
+    'next_active.applications.apps.ApplicationsConfig',
+    'next_active.packages.apps.PackagesConfig',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,11 +54,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
-    'next_active.accounts.apps.AccountsConfig',
-    'next_active.common.apps.CommonConfig',
-    'next_active.applications.apps.ApplicationsConfig'
-]
+    'cloudinary',
+    'bootstrap5',
+    'widget_tweaks',
+] + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -88,8 +104,9 @@ DATABASES = {
 }
 
 AUTHENTICATION_BACKENDS = [
-    'next_active.accounts.authentication.EmailOrUsernameModelBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    "next_active.accounts.authentication.EmailModelBackend",
+    # 'next_active.accounts.authentication.EmailOrUsernameModelBackend',
+    # 'django.contrib.auth.backends.ModelBackend',
 ]
 
 # Password validation
@@ -128,12 +145,28 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': config('CLOUDINARY_API_KEY'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET'),
+}
+
+MEDIA_URL = 'media/'
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 AUTH_USER_MODEL = 'accounts.AppUser'
+
 
 LOGIN_REDIRECT_URL = reverse_lazy('home')
 LOGOUT_REDIRECT_URL = reverse_lazy('home')

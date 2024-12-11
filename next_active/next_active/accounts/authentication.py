@@ -19,3 +19,16 @@ class EmailOrUsernameModelBackend(ModelBackend):
             return user
 
         return None
+
+
+class EmailModelBackend(ModelBackend):
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        try:
+            user = UserModel.objects.get(email=username)
+        except UserModel.DoesNotExist:
+            return None
+        else:
+            if user.check_password(password) and self.user_can_authenticate(user):
+                return user
+
+        return None

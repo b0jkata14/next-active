@@ -1,0 +1,117 @@
+/* Цветове:*/
+/* 9cff00ff	зелено*/
+/* 010b12ff	яко черно */
+/* 1e1f21ff	черно сиво*/
+
+.navbar {
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    font-size: 19px;
+}
+
+.navbar.scrolled {
+    background-color: whitesmoke;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+a > .btn.btn-outline-success {
+    padding-bottom: 8px;
+    padding-top: 8px;
+    font-size: 19px;
+    background-color: #9cff00ff;
+    color: #010b12ff;
+    border-color: #9cff00ff;
+    transition: all 0.3s ease-in-out;
+}
+
+a > .btn.btn-outline-success:hover {
+    background-color: #9cff00ff; /* Свеж зелен цвят при hover */
+    border-color: #9cff00;
+    color: #1e1f21ff; /* Промяна на текста в черно */
+    box-shadow: 0 4px 15px rgba(156, 255, 0, 0.5); /* Мека сянка */
+    transform: scale(1.02); /* Леко уголемяване */
+}
+
+.navbar-nav .nav-link {
+    color: black;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+
+.navbar-nav .nav-link:hover {
+    color: #9cff00;
+    text-shadow: 0 0 10px rgba(156, 255, 0, 0.5);
+    transform: scale(1.05);
+}
+
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #9cff00; /* Цвят на линията */
+    transition: width 0.3s ease, left 0.3s ease; /* Плавно разширяване и позициониране */
+    transform: translateX(-50%); /* Центриране на подчертаването */
+}
+
+
+.navbar-nav .nav-link:hover::after {
+    width: 60%;
+    left: 50%;
+    transform: translateX(-50%); /* Още едно ниво на центриране */
+}
+
+
+.navbar-brand img {
+    max-height: 80px;
+    max-width: 300px;
+    object-fit: contain;
+}
+
+
+.custom-toggler-icon {
+    border: none;
+    outline: none; /* Премахва външния контур при фокус */
+    box-shadow: none;
+    background-color: transparent;
+    width: 30px; /* Ширина на иконата */
+    height: 30px; /* Височина на иконата */
+    fill: white; /* Цвят на SVG */
+    transition: transform 0.3s ease; /* Анимация при натискане */
+}
+
+.navbar-toggler:focus .custom-toggler-icon,
+.navbar-toggler:hover .custom-toggler-icon {
+    border: none;
+    outline: none; /* Премахва външния контур при фокус */
+    box-shadow: none;
+    background-color: transparent;
+    transform: scale(1.1); /* Леко уголемяване при hover/focus */
+}
+
+.navbar-nav {
+    text-align: right; /* Подравнява текстовете вдясно при мобилна версия */
+    padding: 10px; /* Добавя разстояние около текста */
+}
+
+.navbar-toggler {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+/* Декорация за бутоните за мобилна навигация */
+.navbar-nav .nav-item {
+    margin-bottom: 10px; /* Добавя разстояние между елементите */
+}
+
+.navbar.active {
+    background-color: rgba(0, 0, 0, 0.9); /* Тъмнo-сив фон, може да промените на какъвто искате */
+}

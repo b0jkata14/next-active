@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% load static %}
 
-</body>
-</html>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md fixed-top">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="{% url "home" %}">
+            <img src="{% static 'images/base/next-active-logo.svg' %}" alt="NextActive">
+        </a>
+        <!-- Toggler for mobile -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="{% static 'images/base/toggler-burger-menu-right-green.svg' %}" alt="Menu icon"
+                 class="custom-toggler-icon">
+        </button>
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% if request.user.is_staff %}
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="{% url "applications" %}">Applications</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="" href="{% url 'trainer-application-register' %}">
+                            <button class="btn btn-outline-success">For Trainers</button>
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="nav-item ms-3">
+                    <a class="nav-link" href="{% url "dashboard" %}">Dashboard</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="{% url "profile-detail" request.user.id %}">Profile</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="{% url "logout" %}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="{% url "register" %}">Register</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="{% url "login" %}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+

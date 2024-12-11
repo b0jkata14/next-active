@@ -1,19 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Trainer Applications</h1>
-<ul>
-    {% for application in applications %}
-        <li>
-            <a href="{% url 'trainer-application-edit' application.id %}"><strong>{{ application.user.username }}</strong> - Expertise: {{ application.sport }}</a>
-        </li>
-    {% endfor %}
-</ul>
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#<h1>Trainer Applications</h1>#}
+{#<ul>#}
+{#    {% for application in applications %}#}
+{#        <li>#}
+{#            <a href="{% url 'trainer-application-edit' application.id %}"><strong>{{ application.user.username }}</strong> - Expertise: {{ application.sport }}</a>#}
+{#        </li>#}
+{#    {% endfor %}#}
+{#</ul>#}
+{##}
+{#</body>#}
+{#</html>#}
 
-</body>
-</html>
+{% extends 'common/base.html' %}
+{% load widget_tweaks %}
 
+{% block content %}
+
+    <div class="container my-5 p-5">
+    <h1 class="text-center mb-4">Trainer Applications</h1>
+
+    <div class="row g-4">
+        {% for application in applications %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">
+                            <strong>{{ application.user.first_name }} {{ application.user.last_name }}</strong>
+                        </h5>
+                        <p class="card-text mb-2">
+                            <strong>Expertise:</strong> {{ application.sport }}
+                        </p>
+                        <a href="{% url 'trainer-application-edit' application.id %}" class="btn btn-outline-primary w-100">
+                            Edit Application
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

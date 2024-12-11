@@ -1,0 +1,61 @@
+{% extends 'common/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+    <div class="container d-flex flex-column justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg w-100" style="max-width: 600px;">
+            <div class="card-header bg-primary text-white text-center">
+                <h2>Edit Trainer Profile</h2>
+            </div>
+            <div class="card-body p-4">
+
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+
+                    <!-- Location -->
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        {{ form.location|add_class:"form-control" }}
+                        {{ form.location.errors }}
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="mb-3">
+                        <label for="experience" class="form-label">Experience (years)</label>
+                        {{ form.experience|add_class:"form-control" }}
+                        {{ form.experience.errors }}
+                    </div>
+
+                    <!-- Certifications -->
+                    <div class="mb-3">
+                        <label for="certifications" class="form-label">Certifications</label>
+                        {{ form.certifications|add_class:"form-control" }}
+                        {{ form.certifications.errors }}
+                    </div>
+
+                    <!-- Save Changes Button -->
+                    <div class="d-grid mb-3">
+                        <button class="btn btn-primary btn-lg" type="submit">Save Changes</button>
+                    </div>
+                </form>
+
+                <!-- Delete Profile Form -->
+                <form method="post" action="{% url 'profile-delete' request.user.id %}"
+                      onsubmit="return confirm('Are you sure you want to delete your profile? This action cannot be undone.');">
+                    {% csrf_token %}
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-danger btn-lg">Delete Profile</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="card-footer text-center mt-3">
+                <small class="text-muted">Want to go back to your profile? <a
+                        href="{% url 'profile-detail' request.user.id %}" class="text-primary">View Profile</a></small>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

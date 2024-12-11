@@ -1,0 +1,134 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <div class="container-xxl my-4 pt-5 mt-5">
+        <div class="row">
+            <!-- Left part for filters -->
+            <div class="col-md-3">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4>Filters</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="get">
+                            <!-- Filter for Sport -->
+                            <div class="mb-3">
+                                <label for="sport" class="form-label">Sport</label>
+                                <select class="form-select" id="sport" name="sport">
+                                    <option value="">All sports</option>
+                                    {% for sport_choice in sport_choices %}
+                                        <option value="{{ sport_choice.0 }}">{{ sport_choice.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+
+                            <!-- Filter for Location -->
+                            <div class="mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" name="location"
+                                       placeholder="City">
+                            </div>
+
+                            <!-- Filter for Price -->
+                            {#                            <div class="mb-3">#}
+                            {#                                <label for="price" class="form-label">Price</label>#}
+                            {#                                <input type="range" class="form-range" id="price" name="price" min="0" max="100"#}
+                            {#                                       step="1">#}
+                            {#                                <div class="d-flex justify-content-between">#}
+                            {#                                    <span>0 USD</span>#}
+                            {#                                    <span>100 USD</span>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Apply Filters</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right part for trainers -->
+            <div class="col-md-9">
+                <h2 class="my-4">All Trainers</h2>
+                <div class="row">
+                    {% for trainer in trainers %}
+
+                        <div class="col-md-12 mb-4">
+                            <div class="card shadow-sm h-100" style="border-radius: 0.5rem; overflow: hidden;">
+                                <div class="row g-0">
+                                    <!-- Trainer Image -->
+                                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                        <img src="{{ trainer.user.profile.profile_picture.url }}"
+                                             class="trainer-image"
+                                             alt="{{ trainer.user.first_name }} {{ trainer.user.last_name }}"
+                                             style="object-fit: cover; width: 200px; height: 200px; border-radius: 10%">
+                                    </div>
+
+                                    <!-- Trainer Information -->
+                                    <div class="col-md-4 d-flex flex-column justify-content-between p-3">
+                                        <div>
+                                            <h5 class="card-title">{{ trainer.user.first_name }} {{ trainer.user.last_name }}</h5>
+                                            <p class="card-text">{{ trainer.sport }}</p>
+                                            <p class="text-muted">
+                                                <i class="fas fa-map-marker-alt text-danger me-2"></i>{{ trainer.location }}
+                                            </p>
+                                        </div>
+
+                                        <div>
+                                            <!-- Rating -->
+                                            <div class="mb-2">
+                                                <strong>Rating: </strong>
+                                                <span class="badge bg-warning text-dark">
+
+                                                    {% if trainer.rating %}
+                                                        {{ trainer.rating }} ⭐
+                                                    {% else %}
+                                                        No rating
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+
+                                            <!-- Experience -->
+                                            <div class="mb-2">
+                                                <strong>Experience: </strong>
+                                                <span>{{ trainer.experience }} years</span>
+                                            </div>
+
+                                            <!-- Bio -->
+                                            <div class="mb-2">
+                                                {#                                                <strong>Bio: </strong>#}
+                                                <p class="text-muted" style=" font-size: 0.9rem;">
+                                                    {{ trainer.user.profile.bio|slice:":50"|default:"No bio available" }}...
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pricing and Profile Link -->
+                                    <div class="col-md-4 d-flex flex-column justify-content-center p-3 text-center">
+                                        {#                                        <div class="mb-3">#}
+                                        {#                                            <strong>Price: </strong>#}
+                                        {#                                            <span>{{ trainer.price }} 158.00 USD/hour</span>#}
+                                        {#                                        </div>#}
+                                        <a href="{% url 'trainer-detail' trainer.pk %}" class="btn btn-primary">
+                                            View Profile
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Functionality for dynamic loading and filtering with AJAX
+    </script>
+{% endblock %}

@@ -1,0 +1,22 @@
+.card {
+    background-size: cover;
+    background-position: center;
+}
+
+.first-sport {
+    background-image: url('/static/images/index/fitness-card.jpg');
+}
+
+.second-sport {
+    background-image: url('/static/images/index/yoga-card.jpg');
+}
+
+.third-sport {
+    color: white;
+    background-image: url('/static/images/index/ski-card.jpg');
+    background-position: bottom;: ;
+}
+
+li img {
+    background-color: whitesmoke;
+}

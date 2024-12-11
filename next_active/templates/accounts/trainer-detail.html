@@ -1,0 +1,159 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+    <div class="container" style="margin-top: 7rem;">
+        <div class="trainer-header">
+            <img src="{{ trainer.user.profile.profile_picture.url }}" alt="Trainer Profile Picture">
+            <div class="trainer-details">
+                <h1>{{ trainer.user.get_full_name }}</h1>
+                <div class="sport-tag">
+                    <span>{{ trainer.sport }}</span>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star-half-alt text-warning"></i>
+                    <i class="far fa-star"></i>
+                    <span>(4.3/5)</span>
+                </div>
+            </div>
+            {% if request.user == trainer.user %}
+                <a href="{% url 'trainer-edit' trainer.pk %}" class="btn btn-secondary">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="nav-section">
+            <a href="#bio" class="">Biography</a>
+            <a href="#packages">Packages</a>
+            <a href="#specialties">Specialties</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#reviews">Reviews</a>
+        </div>
+
+        <section id="bio">
+            <div class="section-heading">Biography</div>
+            <p>{{ trainer.user.profile.bio }}</p>
+        </section>
+
+        <section id="packages">
+            <div class="container-fluid">
+                <div class="section-heading mb-5">Training Packages</div>
+                <div class="row">
+                    {% for package in packages %}
+                        <div class="col-md-12 mb-4">
+                            <div class="card package-card">
+                                <div class="card-header bg-primary text-white text-left">
+                                    <h5 class="card-title mb-0">{{ package.package_type }}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6 text-left">
+                                            <p class="card-text mb-2"><strong>Type:</strong> {{ package.training_type }}
+                                            </p>
+                                            <p class="card-text mb-2">
+                                                <strong>Sessions:</strong> {{ package.session_count }}
+                                            </p>
+                                            <p class="card-text mb-0">
+                                                <strong>Duration:</strong> {{ package.session_duration }}
+                                                minutes</p>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <p class="price text-success mb-3"><strong>${{ package.price }}</strong></p>
+                                            <a href="#" class="btn btn-primary btn-block"><i
+                                                    class="fas fa-shopping-cart"></i> Book Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="text-center text-muted">No packages available.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section id="specialties">
+            <div class="section-heading">Specialties</div>
+            <ul>
+                <li>Muscle growing</li>
+            </ul>
+        </section>
+
+        <section id="gallery">
+            <div class="section-heading">Gallery</div>
+            <div class="row gallery">
+                <div class="col-md-3 mb-4">
+                    <img src="{% static 'images/index/ski-card.jpg' %}" alt="Gallery Image">
+                </div>
+                <div class="col-md-3 mb-4">
+                    <img src="{% static 'images/index/ski-card.jpg' %}" alt="Gallery Image">
+                </div>
+                <div class="col-md-3 mb-4">
+                    <img src="{% static 'images/index/ski-card.jpg' %}" alt="Gallery Image">
+                </div>
+                <div class="col-md-3 mb-4">
+                    <img src="{% static 'images/index/ski-card.jpg' %}" alt="Gallery Image">
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews">
+            <div class="section-heading">Reviews</div>
+            <div class="reviews">
+                {% for review in trainer.reviews.all %}
+                    <div class="review-card">
+                        <img src="{{ review.user.profile.profile_picture.url }}" alt="Reviewer Picture">
+                        <div class="review-content">
+                            <p><strong>{{ review.user.get_full_name }}</strong></p>
+                            <div class="rating">
+                                {% for star in review.rating|range_filter %}
+                                    <i class="fas fa-star text-warning"></i>
+                                {% endfor %}
+
+                                <!-- Цикъл за празни звезди -->
+                                {% for star in 5|sub:review.rating|range_filter %}
+                                    <i class="far fa-star text-warning"></i>
+                                {% endfor %}
+                            </div>
+                            <p>{{ review.comment }}</p>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="review-card">
+                    <p class="text-muted">No reviews yet. Be the first to leave one!</p>
+                {% endfor %}
+                </div>
+                <form class="review-form" method="POST" action="{% url 'trainer-review' trainer.pk %}">
+                    {% csrf_token %}
+                    <h5>Leave a Review</h5>
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating</label>
+                        <select id="rating" name="rating" class="form-select" required>
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Very Good</option>
+                            <option value="3">3 - Good</option>
+                            <option value="2">2 - Fair</option>
+                            <option value="1">1 - Poor</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="comment" class="form-label">Comment</label>
+                        <textarea id="comment" name="comment" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </form>
+
+
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% load static %}
+
+<div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Choose your sport</h2>
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col">
+            <a href="{% url 'dashboard' %}?sport=Fitness" class="text-decoration-none">
+                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg first-sport">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Discover Your Strength and Inspiration!</h3>
+                        <ul class="d-flex list-unstyled mt-auto">
+                            <li class="me-auto">
+                                <img src="{% static 'images/base/next-active-logo.svg' %}" alt="NextActive" width="32"
+                                     height="32" class="rounded-circle border border-white">
+                            </li>
+                            <li class="d-flex align-items-center me-3">
+                                <svg class="bi me-2" width="1em" height="1em">
+                                    <use xlink:href="#geo-fill"></use>
+                                </svg>
+                                <small></small>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <svg class="bi me-2" width="1em" height="1em">
+                                    <use xlink:href="#calendar3"></use>
+                                </svg>
+                                <small>Fitness</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col">
+            <a href="{% url 'dashboard' %}?sport=Yoga" class="text-decoration-none">
+                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg second-sport">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Embrace Tranquility and Balance</h3>
+                        <ul class="d-flex list-unstyled mt-auto">
+                            <li class="me-auto">
+                                <img src="{% static 'images/base/next-active-logo.svg' %}" alt="NextActive" width="32"
+                                     height="32" class="rounded-circle border border-white">
+                            </li>
+                            <li class="d-flex align-items-center me-3">
+                                <svg class="bi me-2" width="1em" height="1em">
+                                    <use xlink:href="#geo-fill"></use>
+                                </svg>
+                                <small></small>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <svg class="bi me-2" width="1em" height="1em">
+                                    <use xlink:href="#calendar3"></use>
+                                </svg>
+                                <small>Yoga</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col">
+            <a href="{% url 'dashboard' %}?sport=Skiing" class="text-decoration-none">
+                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg third-sport">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                        <h3 class="pt-1 mt-1 mb-4 display-6 lh-1 fw-bold">Conquer the Slopes,
+                            Embrace the Adventure</h3>
+                        <ul class="d-flex list-unstyled mt-auto">
+                            <li class="me-auto">
+                                <img src="{% static 'images/base/next-active-logo.svg' %}" alt="NextActive" width="32"
+                                     height="32" class="rounded-circle border border-white">
+                            </li>
+                            <li class="d-flex align-items-center me-3">
+                                <svg class="bi me-2" width="1em" height="1em">
+                                    <use xlink:href="#geo-fill"></use>
+                                </svg>
+                                <small></small>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <svg class="bi me-2" width="1em" height="1em">
+                                    <use xlink:href="#calendar3"></use>
+                                </svg>
+                                <small>Skiing</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+    </div>
+</div>

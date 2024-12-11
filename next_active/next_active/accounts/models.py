@@ -1,10 +1,15 @@
+from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from next_active.accounts.manager import AppUserManager
+from next_active.accounts.utils import profile_picture_folder
 from next_active.applications.choices import SportChoices
 
 
 class AppUser(AbstractUser):
+    username = None
+
     email = models.EmailField(
         unique=True,
     )
@@ -21,8 +26,13 @@ class AppUser(AbstractUser):
         default=False,
     )
 
+    objects = AppUserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
     def __str__(self):
-        return self.username
+        return self.first_name + ' ' + self.last_name
 
 
 class UserProfile(models.Model):
@@ -33,14 +43,19 @@ class UserProfile(models.Model):
         primary_key=True,
     )
 
-    profile_picture = models.ImageField(
-        upload_to='#',
+    profile_picture = CloudinaryField(
+        'image',
+        transformation={
+            'width': 500,
+            'height': 500,
+            'crop': 'limit',
+            'quality': 'auto:good',
+            'fetch_format': 'webp',
+        },
+        folder=profile_picture_folder,
         blank=True,
-        null=True
-    )
-
-    full_name = models.CharField(
-        max_length=100,
+        null=True,
+        default='https://res.cloudinary.com/dsyzcsr5w/image/upload/v1733430959/users/0/aqkxfvktpokyyzu3dmmx.jpg',
     )
 
     bio = models.TextField(
@@ -71,6 +86,16 @@ class TrainerProfile(models.Model):
         choices=SportChoices.choices,
     )
 
+    location = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+    )
+    experience = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+    )
+
     certifications = models.TextField(
         blank=True,
         null=True,
@@ -82,3 +107,7 @@ class TrainerProfile(models.Model):
 
     def __str__(self):
         return f"Trainer: {self.user.username} - Sport: {self.sport}"
+
+    @property
+    def profile(self):
+        return self.user.profile

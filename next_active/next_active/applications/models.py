@@ -33,7 +33,9 @@ class TrainerApplication(models.Model):
         null=True
     )
 
-    message = models.TextField()
+    message = models.TextField(
+        default='Your coaching request is being processed.',
+    )
 
     def __str__(self):
         return (

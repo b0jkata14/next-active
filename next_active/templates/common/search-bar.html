@@ -1,0 +1,17 @@
+<form method="get" action="{% url 'dashboard' %}">
+    <div class="container-fluid background-image">
+        <div class="container-lg search-box">
+            <div class="row g-2">
+                <div class="col-md">
+                    <input type="text" name="sport" class="form-control" placeholder="Sport">
+                </div>
+                <div class="col-md">
+                    <input type="text" name="location" class="form-control" placeholder="Location">
+                </div>
+                <div class="col-md">
+                    <button type="submit" class="btn btn-success w-100">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

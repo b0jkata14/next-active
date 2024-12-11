@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from pyexpat.errors import messages
 
 from next_active.accounts.models import TrainerProfile
 from next_active.applications.models import TrainerApplication

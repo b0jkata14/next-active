@@ -1,13 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>DETAIL APPLICATION</h1>
-        {{ trainerapplication.sport }}
-    {{ trainerapplication.certifications }}
+{% extends 'common/base.html' %}
 
-</body>
-</html>
+{% block content %}
+    <div class="container d-flex flex-column justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg w-100" style="max-width: 600px;">
+            <!-- Card Header -->
+            <div class="card-header bg-primary text-white text-center">
+                <h2>Trainer Application Details</h2>
+            </div>
+
+            <!-- Card Body -->
+            <div class="card-body p-4">
+                <!-- Sport -->
+                <div class="mb-4">
+                    <h5 class="text-muted">Sport</h5>
+                    <p class="form-control-plaintext text-dark fs-5 fw-medium">{{ trainerapplication.sport }}</p>
+                </div>
+
+                <!-- Certifications -->
+                <div class="mb-4">
+                    <h5 class="text-muted">Certifications</h5>
+                    <p class="form-control-plaintext text-dark fs-5 fw-medium">{{ trainerapplication.certifications }}</p>
+                </div>
+
+                <!-- Submission Date -->
+                <div class="mb-4">
+                    <h5 class="text-muted">Submission Date</h5>
+                    <p class="form-control-plaintext text-dark fs-5 fw-medium">
+                        {{ trainerapplication.application_date|date:"F j, Y, g:i a" }}
+                    </p>
+                </div>
+
+                <!-- Application Overview -->
+                <div class="border-top pt-3">
+                    <h5 class="text-muted">Application Overview</h5>
+                    <!-- Status -->
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        {% if trainerapplication.is_approved %}
+                            <span class="badge bg-success text-uppercase fs-6 px-3 py-1 shadow-sm">Approved</span>
+                        {% elif trainerapplication.is_rejected %}
+                            <span class="badge bg-danger text-uppercase fs-6 px-3 py-1 shadow-sm">Rejected</span>
+                        {% else %}
+                            <span class="badge bg-warning text-uppercase fs-6 px-3 py-1 shadow-sm">Pending</span>
+                        {% endif %}
+                    </div>
+                    <!-- Message -->
+                    {% if trainerapplication.message %}
+                        <div>
+                            <h6 class="text-muted">Message:</h6>
+                            <p class="form-control-plaintext bg-light border rounded p-3 shadow-sm fw-bold text-dark">
+                                {{ trainerapplication.message }}
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
